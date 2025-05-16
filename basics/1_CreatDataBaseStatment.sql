@@ -1,0 +1,4 @@
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'DB1')
+BEGIN
+    CREATE DATABASE DB1;
+END;
