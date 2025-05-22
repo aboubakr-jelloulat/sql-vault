@@ -81,7 +81,7 @@ Where firstName like '[abc]%';
 
 
 ---------------------------------
--- search for all their first name start with any letter from a to l
+-- search for all their first name start with any letter from a to f
 select ID, FirstName, LastName from Employees
-Where firstName like '[a-l]%';
+Where firstName like '[a-l]%'; -- like [abcdef]
 ---------------------------------
