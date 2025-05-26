@@ -159,3 +159,32 @@ ALTER TABLE Persons
 -- Explanation:
 -- You can drop a UNIQUE constraint using its name with the DROP CONSTRAINT command.
 -- In this case, we remove the UC_Person constraint.
+
+
+-- ✅  ✅   ✅   ✅ Index in MySQL   ✅  ✅   ✅   ✅
+
+-- Indexes are used to retrieve data from the database more quickly than otherwise. 
+--The users cannot see the indexes, they are just used to speed up searches/queries
+
+
+
+-- Create a sample table
+CREATE TABLE Employees (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Department VARCHAR(50),
+    Age INT
+);
+
+-- Add an index to the Department column
+CREATE INDEX idx_dept ON Employees(Department);
+
+-- Add another index to Age
+CREATE INDEX idx_age ON Employees(Age);
+
+-- View all indexes in the table
+SHOW INDEX FROM Employees;
+
+
+-- The DROP INDEX statement is used to delete an index in a table.
+DROP INDEX Employees.idx_age;
