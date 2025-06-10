@@ -34,4 +34,4 @@ set MakeID =
 -- Shows how to get make names by joining CarDetails and Makes tables
 SELECT Makes.MakeName
 FROM CarDetails INNER JOIN
-     Makes ON CarDetails.MakeID = Makes.MakeID
+     Makes ON CarDetails.MakeID = Makes.MakeID 
