@@ -1,5 +1,4 @@
---   Problem 9:  Problem 9: Get all vehicles that runs with GAS
-
+--     Problem 10: Get all Makes that runs with GAS
 
 select  distinct  Makes.Make, FuelTypes.FuelTypeName from VehicleDetails
 
