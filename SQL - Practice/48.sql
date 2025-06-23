@@ -16,4 +16,4 @@ SELECT        Makes.Make, COUNT(*) AS NumberOfModels	FROM            Makes
 												GROUP BY MakeID
 										) R1
 
-							)
+							) 
