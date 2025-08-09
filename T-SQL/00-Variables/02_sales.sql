@@ -184,4 +184,49 @@ INSERT INTO Purchases (PurchaseID, CustomerID, PurchaseDate, Amount) VALUES (2, 
 INSERT INTO Purchases (PurchaseID, CustomerID, PurchaseDate, Amount) VALUES (3, 2, '2025-07-03', 150.00);
 
 
-SELECT * FROM Purchases;
+
+
+-- ***** Loyalty Points Calculation *****
+
+
+
+
+--SELECT * FROM Purchases
+
+--SELECT * FROM Customers 
+
+DECLARE @CustomerID		INT;
+DECLARE @TotalSpent		INT;
+DECLARE @PointEarned	INT;
+DECLARE @CurrentYear	INT = YEAR(GETDATE());
+
+-- INIT 
+
+SET @CustomerID = 1;
+
+-- Calculate Total Amount spent by the customer in the current year
+
+SELECT @TotalSpent = SUM(Amount) From Purchases
+	WHERE CustomerID = @CustomerID AND YEAR(PurchaseDate) = @CurrentYear;
+
+-- Calculate Loyalty Points
+
+
+SET @PointEarned = CAST(@TotalSpent / 10 AS INT);
+
+-- UPDATE 
+
+UPDATE Customers
+	SET LoyaltyPoints = @PointEarned + LoyaltyPoints	WHERE CustomerID = @CustomerID;
+		
+
+-- Report
+
+PRINT 'Loyalty Points Report for Customer ID: ' + CAST(@CustomerID AS VARCHAR);
+PRINT 'Total Amount Spent in Current Year: ' + CAST(@TotalSpent AS VARCHAR);
+PRINT 'Loyalty Points Earned: ' + CAST(@PointEarned AS VARCHAR);
+
+
+SELECT * FROM Customers
+
+SELECT * FROM Purchases
