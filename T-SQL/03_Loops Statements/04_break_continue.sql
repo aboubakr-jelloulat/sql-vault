@@ -1,0 +1,32 @@
+USE C21_DB1;
+
+DECLARE @COUNTER INT = 1;
+
+PRINT 'Print Numbers From 1 To 5'
+
+WHILE (@COUNTER <= 10)
+	BEGIN
+		IF (@COUNTER = 5)
+			BEGIN
+				BREAK;
+			END;
+		PRINT 'NB : ' + CAST(@COUNTER AS VARCHAR);
+		SET @COUNTER = @COUNTER + 1;
+	END;
+
+
+
+PRINT '';
+PRINT 'Print ODD Numbers : ';
+
+SET @COUNTER = 0;
+
+WHILE (@COUNTER < 10)
+	BEGIN
+		SET @COUNTER = @COUNTER + 1;
+		IF (@COUNTER % 2 = 0)
+			BEGIN
+				CONTINUE;
+			END;
+		PRINT 'NB : ' + CAST(@COUNTER AS VARCHAR);
+	END
