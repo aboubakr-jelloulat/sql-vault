@@ -1,6 +1,5 @@
 
    BEGIN TRY
-        -- Intentional division by zero error
         SELECT 1 / 0;
     END TRY
     BEGIN CATCH
