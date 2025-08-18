@@ -61,3 +61,38 @@ DROP TABLE #StudentTable;
 
 
 
+
+
+
+--- ********************   Differences between temporary tables and normal (permanent) tables:   ********************
+
+
+-- Temporary Tables: They are created in the tempdb database and exist only for the duration of the session or connection that created them. 
+--     Local temporary tables (prefixed with #) are visible only to the connection that created them,
+--     while global temporary tables (prefixed with ##) are visible to all connections but still exist only until the last connection using them is closed.
+
+
+
+
+--     Normal Tables: Permanent tables are created in a user-defined database and persist until they are explicitly dropped by a user. 
+--         They are visible and accessible to any user with the appropriate permissions, regardless of the user session or connection.
+
+
+
+
+-- 2. Performance and Storage
+
+-- Temporary Tables: They are stored in the tempdb database, which is a system database recreated every time SQL Server restarts.
+--     Operations on temporary tables generally have less logging and lower locking overhead, which can lead to performance benefits, 
+--     especially for complex queries and large data manipulations.
+
+
+-- Normal Tables: Permanent tables are stored in the database in which they are created and are subject to more extensive logging and locking
+
+
+
+
+-- 5. Backup and Recovery
+-- Temporary Tables: They are not included in database backups and cannot be recovered after a server restart or crash.
+
+
