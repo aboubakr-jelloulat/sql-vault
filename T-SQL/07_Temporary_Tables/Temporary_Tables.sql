@@ -35,3 +35,29 @@ SELECT * FROM #StudentTable
 
 -- Example: get all IT specialists
 SELECT * FROM #StudentTable WHERE Specialist = 'IT';
+
+
+DROP TABLE #StudentTable;
+
+
+
+--- ********************    Differences between Temp Table vs Variable Table ********************
+
+
+
+-- Temporary Tables: Created using the CREATE TABLE statement, with the table name prefixed by # for local temporary tables (visible only in the current session) or
+--      ## for global temporary tables (visible to all sessions). They are stored in the tempdb database.
+
+-- Table Variables: Declared using the DECLARE statement and have a similar structure to permanent tables. The syntax is DECLARE @TableName TABLE (column definitions). 
+--     They have a limited scope and are typically used within the function, stored procedure, or batch in which they are declared.
+
+
+
+
+-- Table Variables: Automatically cleaned up at the end of the batch, function, or stored procedure in which they are defined.
+
+
+-- Temporary Tables: Exist until they are explicitly dropped using the DROP TABLE command or until the session/connection that created them is closed.
+
+
+
