@@ -42,7 +42,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF UPDATE(Grade)
+    IF UPDATE(Grade) -- Checks if the 'Grade' column was part of the update
     BEGIN
         INSERT INTO dbo.PupilsAudit
         (
