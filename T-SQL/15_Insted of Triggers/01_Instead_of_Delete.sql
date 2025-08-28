@@ -1,15 +1,21 @@
 use C21_DB1;
 
 
--- Drop FK if it exists
-IF OBJECT_ID('dbo.DriverAudit', 'U') IS NOT NULL
-BEGIN
-    ALTER TABLE dbo.DriverAudit DROP CONSTRAINT FK_DriverAudit_Drivers;
-END
+-- Find any foreign keys referencing Drivers
+DECLARE @sql NVARCHAR(MAX) = N'';
 
+SELECT @sql = @sql + 'ALTER TABLE ' + QUOTENAME(OBJECT_SCHEMA_NAME(parent_object_id)) 
+    + '.' + QUOTENAME(OBJECT_NAME(parent_object_id)) 
+    + ' DROP CONSTRAINT ' + QUOTENAME(name) + ';' + CHAR(13)
+FROM sys.foreign_keys
+WHERE referenced_object_id = OBJECT_ID('dbo.Drivers');
 
--- Then drop Drivers table
-IF OBJECT_ID('dbo.Drivers', 'U') IS NOT NULL DROP TABLE dbo.Drivers;
+-- Execute the drop statements if any exist
+IF (@sql <> '') EXEC sp_executesql @sql;
+
+-- Now safely drop the Drivers table
+IF OBJECT_ID('dbo.Drivers','U') IS NOT NULL DROP TABLE dbo.Drivers;
+
 
 
 -- 2. Recreate Drivers table
@@ -23,6 +29,16 @@ CREATE TABLE dbo.Drivers
     IsActive       BIT NOT NULL DEFAULT 1
 );
 GO
+
+
+
+INSERT INTO dbo.Drivers (FullName, LicenseNumber, City) VALUES
+(N'Aboubakr Jelloulat', 'ABC123', 'Casablanca'),
+(N'Sander Boss',        'XYZ789', 'Amsterdam'),
+(N'Maria Lopez',        'LMN456', 'Sao Peolo');
+GO
+
+
 
 -- 3. Recreate trigger
 
@@ -40,14 +56,6 @@ BEGIN
     FROM dbo.Drivers d
     INNER JOIN deleted x ON d.DriverID = x.DriverID;
 END;
-GO
-
--- 4. Insert test drivers
-
-INSERT INTO dbo.Drivers (FullName, LicenseNumber, City) VALUES
-(N'Aboubakr Jelloulat', 'ABC123', 'Casablanca'),
-(N'Sander Boss',        'XYZ789', 'Rabat'),
-(N'Maria Lopez',        'LMN456', 'Tangier');
 GO
 
 
