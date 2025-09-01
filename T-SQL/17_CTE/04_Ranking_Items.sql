@@ -47,3 +47,29 @@ SELECT EmployeeID, TotalSales, SalesRank   FROM RankedSales;
 --OVER (...) → tells SQL how to rank.
 
 --ORDER BY TotalSales DESC → highest sales get rank 1, then rank 2, etc. (DESC = descending).
+
+
+
+
+
+-- ex02 :  Calculating Average Sales of Top Performing Employees Using CTE
+
+
+
+USE C21_DB1;
+
+GO
+
+
+WITH TotalSales AS 
+(
+	SELECT EmployeeID, SUM(SaleAmount) AS [Total Sales] FROM SalesRecords	 GROUP BY EmployeeID
+
+),
+	TopSalesEmployees AS 
+	(
+		SELECT TOP 3 EmployeeID, [Total Sales] FROM TotalSales ORDER BY [Total Sales] DESC 
+	)
+
+	SELECT AVG([Total Sales]) AS [Average Top Sales]  FROM TopSalesEmployees
+
